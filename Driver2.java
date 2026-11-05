@@ -1,41 +1,28 @@
+import java.util.Scanner;
+
 public class Driver2 {
 
     public static void main(String[] args) {
-
-        Card[] cards = new Card[5];
-
-        Card[] input = {
-                new Card("Ace", "Spades"),
-                new Card("King", "Hearts"),
-                new Card("Queen", "Clubs"),
-                new Card("Ace", "Spades"),   // Duplicate
-                new Card("Jack", "Diamonds")
+        // (a) log lines, including one malformed line (only 2 parts)
+        String[] logs = {
+            "10:05 alice Hello there",
+            "10:07 bob Meeting at noon",
+            "10:09 carol"
         };
 
-        int count = 0;
-        boolean duplicateFound = false;
+        // (b) read keyword
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter keyword: ");
+        String keyword = sc.nextLine().trim();
 
-        for (Card card : input) {
+        // (c)-(d) filter
+        chatFilter filter = new chatFilter();
+        filter.filter(logs, keyword);
 
-            boolean duplicate = false;
+        // (e) print results
+        System.out.println("Matches: " + filter.getMatchCount());
+        System.out.print(filter.getReport());
 
-            for (int i = 0; i < count; i++) {
-                if (card.equals(cards[i])) {
-                    System.out.println("Duplicate found: " + card);
-                    duplicate = true;
-                    duplicateFound = true;
-                    break;
-                }
-            }
-
-            if (!duplicate) {
-                cards[count] = card;
-                count++;
-            }
-
-            if (duplicateFound) {
-                break; 
-            }
-        }
+        sc.close();
     }
 }

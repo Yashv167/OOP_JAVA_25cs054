@@ -1,33 +1,26 @@
 public class Driver1 {
 
     public static void main(String[] args) {
-
-        Point[] points = {
-                new Point(1, 2),
-                new Point(3, 4),
-                new Point(1, 2), // Repeat
-                new Point(5, 6),
-                new Point(3, 4)  // Repeat
+        String[] passwords = {
+            "abc",
+            "abcdefgh",
+            "Abcdefgh",
+            "abcd1234",
+            "Abcd1234",
+            "abc@123",
+            "Abcd1234!",
+            ""
         };
 
-        int distinct = 0;
-
-        for (int i = 0; i < points.length; i++) {
-
-            boolean found = false;
-
-            for (int j = 0; j < i; j++) {
-                if (points[i].equals(points[j])) {
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) {
-                distinct++;
-            }
+        for (String pw : passwords) {
+            System.out.println("Password: \"" + pw + "\"");
+            System.out.println("  Length >= 8       : " + (PasswordChecker.hasMinLength(pw)   ? "PASS" : "FAIL"));
+            System.out.println("  Has uppercase     : " + (PasswordChecker.hasUppercase(pw)   ? "PASS" : "FAIL"));
+            System.out.println("  Has digit         : " + (PasswordChecker.hasDigit(pw)       ? "PASS" : "FAIL"));
+            System.out.println("  Has special char  : " + (PasswordChecker.hasSpecialChar(pw) ? "PASS" : "FAIL"));
+            System.out.println("  Rules passed      : " + PasswordChecker.countPassed(pw) + "/4");
+            System.out.println("  Strength          : " + PasswordChecker.strength(pw));
+            System.out.println();
         }
-
-        System.out.println("Distinct: " + distinct);
     }
 }
